@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Custom styles for MotorShop Admin */
+@layer components {
+    /* Button styles */
+    .btn-primary {
+        @apply bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200;
+    }
+    
+    .btn-secondary {
+        @apply bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200;
+    }
+    
+    .btn-danger {
+        @apply bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200;
+    }
+    
+    .btn-success {
+        @apply bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200;
+    }
+    
+    /* Card styles */
+    .card {
+        @apply bg-white rounded-lg shadow-sm p-6;
+    }
+    
+    /* Badge styles */
+    .badge {
+        @apply text-xs font-semibold px-2 py-1 rounded-full;
+    }
+    
+    .badge-success {
+        @apply bg-green-100 text-green-800;
+    }
+    
+    .badge-warning {
+        @apply bg-yellow-100 text-yellow-800;
+    }
+    
+    .badge-info {
+        @apply bg-blue-100 text-blue-800;
+    }
+    
+    .badge-danger {
+        @apply bg-red-100 text-red-800;
+    }
+    
+    /* Form styles */
+    .form-input {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5;
+    }
+    
+    .form-label {
+        @apply block mb-2 text-sm font-medium text-gray-700;
+    }
+    
+    .form-error {
+        @apply mt-1 text-sm text-red-600;
+    }
+    
+    /* Alert styles */
+    .alert {
+        @apply p-4 mb-6 rounded border-l-4;
+    }
+    
+    .alert-success {
+        @apply bg-green-100 border-green-500 text-green-700;
+    }
+    
+    .alert-danger {
+        @apply bg-red-100 border-red-500 text-red-700;
+    }
+    
+    .alert-warning {
+        @apply bg-yellow-100 border-yellow-500 text-yellow-700;
+    }
+    
+    .alert-info {
+        @apply bg-blue-100 border-blue-500 text-blue-700;
+    }
+    
+    /* Admin layout styles */
+    .bg-admin-dark {
+        background-color: #1e2a3a;
+    }
+    
+    .bg-admin-sidebar {
+        background-color: #1e2a3a;
+    }
+    
+    .bg-admin-header {
+        background-color: #1e2a3a;
+    }
+    
+    /* Sidebar transition */
+    .sidebar-open {
+        transform: translateX(0);
+    }
+    
+    .sidebar-closed {
+        transform: translateX(-100%);
+    }
+    
+    .content-full {
+        margin-left: 0;
+    }
+    
+    .content-with-sidebar {
+        margin-left: 16rem;
+    }
+    
+    @media (max-width: 1023px) {
+        .content-with-sidebar {
+            margin-left: 0;
+        }
+    }
+    
+    /* Header height for proper content positioning */
+    .admin-header-height {
+        height: 64px;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

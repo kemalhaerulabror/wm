@@ -37,15 +37,9 @@
                 <div class="flex space-x-3 items-center">
                     @if($product->stock > 0)
                         @auth
-                        {{-- Ganti tag <a> di atas dengan form ini --}}
-<form action="{{ route('checkout.buy-now', $product->id) }}" method="POST" class="flex-grow">
-    @csrf
-    {{-- Input hidden ini akan mengirimkan kuantitas ke controller --}}
-    <input type="hidden" name="quantity" value="1">
-    <button type="submit" id="buyButton" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
-        Beli Sekarang
-    </button>
-</form>
+                        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                            Beli Sekarang
+                        </a>
                         @else
                         <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
                             Beli (login)

@@ -9,17 +9,17 @@
                 <div class="relative">
                     <!-- Slide 1 -->
                     <div class="carousel-slide transition-opacity duration-500 ease-in-out">
-                        <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Banner Wipa Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/1.jpg') }}" alt="Banner Wipa Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                     
                     <!-- Slide 2 -->
                     <div class="carousel-slide hidden transition-opacity duration-500 ease-in-out">
-                        <img src="https://images.unsplash.com/photo-1611241823651-2f98fe6e47b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Promo Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/2.jpg') }}" alt="Promo Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                     
                     <!-- Slide 3 -->
                     <div class="carousel-slide hidden transition-opacity duration-500 ease-in-out">
-                        <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Servis Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/3.jpg') }}" alt="Servis Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                 </div>
             </div>

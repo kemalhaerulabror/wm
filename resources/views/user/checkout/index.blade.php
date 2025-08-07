@@ -12,13 +12,20 @@
     @endif
     
     <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Form Checkout -->
         <div class="lg:w-2/3">
             <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
                 <h2 class="text-base sm:text-lg font-medium mb-3 sm:mb-4">Konfirmasi Pemesanan</h2>
                 
                 <form action="{{ route('checkout.store') }}" method="POST">
                     @csrf
+                    
+                    {{-- PERBAIKAN DARI SINI --}}
+                    @if(isset($directBuy) && $directBuy)
+                    <input type="hidden" name="direct_buy" value="1">
+                    <input type="hidden" name="product_id" value="{{ $cartItems->first()->product_id }}">
+                    <input type="hidden" name="quantity" value="{{ $cartItems->first()->quantity }}">
+                    @endif
+                    {{-- SAMPAI SINI --}}
                     
                     <div class="mb-4">
                         <p class="text-sm text-gray-600 mb-4">Setelah melakukan checkout, Anda akan diarahkan ke halaman pembayaran untuk menyelesaikan pesanan Anda.</p>
@@ -47,7 +54,6 @@
             </div>
         </div>
         
-        <!-- Ringkasan Order -->
         <div class="lg:w-1/3">
             <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6 sticky top-20">
                 <h2 class="text-base sm:text-lg font-medium mb-3 sm:mb-4">Ringkasan Order</h2>

@@ -12,6 +12,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class ProductController extends Controller
 {
+    // Menggunakan data statis, tetapi lebih baik disimpan di database atau config
     protected $categories = ['Motor Matic', 'Motor Bebek', 'Motor Sport'];
     protected $brands = ['Honda', 'Yamaha', 'Suzuki', 'Kawasaki'];
 
@@ -47,28 +48,20 @@ class ProductController extends Controller
 
         $data = $request->except('image');
         
-        // Secara eksplisit menetapkan is_featured menjadi false jika tidak ada dalam request
-        if (!isset($data['is_featured'])) {
-            $data['is_featured'] = false;
-        }
+        // Perbaikan: Menggunakan `request()->boolean()` yang lebih ringkas dan aman
+        $data['is_featured'] = $request->boolean('is_featured');
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = date('YmdHi') . '_' . $image->getClientOriginalName();
             
-            // Gunakan storage untuk menyimpan gambar
-            $path = storage_path('app/public/product_images');
-            
-            // Membuat direktori jika belum ada
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-            
-            // Simpan gambar menggunakan method baru
+            // Perbaikan: Gunakan ImageManager untuk memproses dan meng-encode gambar
             $manager = new ImageManager(new Driver());
             $imageFile = $manager->read($image);
             $imageFile->scale(width: 800);
-            $imageFile->save($path . '/' . $filename);
+            
+            // Perbaikan: Simpan gambar menggunakan Facade Storage
+            Storage::disk('public')->put('product_images/' . $filename, $imageFile->encode());
             
             $data['image'] = $filename;
         }
@@ -105,36 +98,25 @@ class ProductController extends Controller
 
         $data = $request->except('image');
         
-        // Secara eksplisit menetapkan is_featured menjadi false jika tidak ada dalam request
-        if (!isset($data['is_featured'])) {
-            $data['is_featured'] = false;
-        }
+        // Perbaikan: Menggunakan `request()->boolean()` yang lebih ringkas dan aman
+        $data['is_featured'] = $request->boolean('is_featured');
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = date('YmdHi') . '_' . $image->getClientOriginalName();
             
-            // Gunakan storage untuk menyimpan gambar
-            $path = storage_path('app/public/product_images');
-            
-            // Membuat direktori jika belum ada
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-            
-            // Hapus gambar lama jika ada
+            // Perbaikan: Hapus gambar lama menggunakan Facade Storage sebelum menyimpan yang baru
             if ($product->image) {
-                $oldImagePath = $path . '/' . $product->image;
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
+                Storage::disk('public')->delete('product_images/' . $product->image);
             }
             
-            // Simpan gambar baru menggunakan method baru
+            // Perbaikan: Gunakan ImageManager untuk memproses dan meng-encode gambar
             $manager = new ImageManager(new Driver());
             $imageFile = $manager->read($image);
             $imageFile->scale(width: 800);
-            $imageFile->save($path . '/' . $filename);
+            
+            // Perbaikan: Simpan gambar baru menggunakan Facade Storage
+            Storage::disk('public')->put('product_images/' . $filename, $imageFile->encode());
             
             $data['image'] = $filename;
         }
@@ -147,17 +129,9 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        // Hapus gambar jika ada
+        // Perbaikan: Hapus gambar menggunakan Facade Storage
         if ($product->image) {
-            // Cek kedua lokasi penyimpanan
-            $oldPath = public_path('upload/product_images/' . $product->image);
-            $newPath = storage_path('app/public/product_images/' . $product->image);
-            
-            if (file_exists($oldPath)) {
-                unlink($oldPath);
-            } elseif (file_exists($newPath)) {
-                unlink($newPath);
-            }
+            Storage::disk('public')->delete('product_images/' . $product->image);
         }
 
         $product->delete();

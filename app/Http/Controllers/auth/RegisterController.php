@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Notifications\VerifyEmailNotification;
-use Illuminate\Auth\Events\Registered;
+// use App\Notifications\VerifyEmailNotification; // Tidak lagi diperlukan jika menggunakan notifikasi bawaan Laravel
+use Illuminate\Auth\Events\Registered; // Pastikan ini di-use
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Notification;
+// use Illuminate\Support\Facades\URL; // Tidak lagi diperlukan jika menggunakan notifikasi bawaan Laravel
+// use Illuminate\Support\Facades\Notification; // Tidak lagi diperlukan jika menggunakan notifikasi bawaan Laravel
+use Illuminate\Support\Facades\Auth; // Tambahkan ini jika Anda ingin user langsung login setelah register
 
 class RegisterController extends Controller
 {
@@ -52,21 +53,19 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Generate link verifikasi
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            [
-                'id' => $user->id,
-                'hash' => sha1($user->email)
-            ]
-        );
+        // Opsional: Login user secara otomatis setelah registrasi
+        // Jika Anda ingin pengguna langsung login setelah registrasi, aktifkan baris ini.
+        // Auth::login($user);
 
-        // Kirim notifikasi email yang konsisten
-        Notification::route('mail', $user->email)
-            ->notify(new VerifyEmailNotification($user, $verificationUrl));
+        // --- BAGIAN PENTING UNTUK PENGIRIMAN EMAIL REAL-TIME ---
+        // Panggil event Registered. Ini akan memicu pengiriman notifikasi verifikasi email
+        // secara otomatis oleh Laravel jika model User mengimplementasikan MustVerifyEmail.
+        // Ini adalah cara standar dan paling andal untuk mengirim email verifikasi.
+        event(new Registered($user));
+        // --- AKHIR BAGIAN PENTING ---
 
-        // Tampilkan pesan sukses pada halaman register
+        // Tetap kembali ke halaman sebelumnya (halaman register) dengan pesan sukses.
+        // Ini sesuai dengan permintaan Anda untuk tidak mengubah tampilan/redirect.
         return back()->with('success', 'Pendaftaran berhasil! Link verifikasi telah dikirim ke email Anda. Silakan cek email untuk verifikasi akun.');
     }
-} 
+}

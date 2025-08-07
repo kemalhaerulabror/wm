@@ -15,10 +15,10 @@
     $manifest = json_decode(file_get_contents($manifestPath), true);
    @endphp
     <link rel="stylesheet" href="{{ config('app.url') }}/build/{{ $manifest['resources/css/app.css']['file'] }}">
-    <script type="module" src="{{ config('app.url') }}/build/{{ $manifest['resources/js/app.jsx']['file'] }}"></script>
+    <script type="module" src="{{ config('app.url') }}/build/{{ $manifest['resources/js/app.js']['file'] }}"></script>
   @else
     @viteReactRefresh
-    @vite(['resources/js/app.jsx', 'resources/css/app.css'])
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
   @endif
  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

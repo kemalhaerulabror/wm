@@ -15,7 +15,7 @@
                 <a href="/" class="inline-block">
                     <div class="flex items-center justify-center">
                         <i class="fa-solid fa-motorcycle text-gray-800 text-3xl mr-2"></i>
-                        <span class="text-2xl font-bold text-gray-800">WP Motor</span>
+                        <span class="text-2xl font-bold text-gray-800">Wipa Motor</span>
                     </div>
                 </a>
             </div>

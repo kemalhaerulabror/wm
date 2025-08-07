@@ -10,7 +10,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log; // Pastikan ini diimpor
 use Illuminate\Support\Str;
 use Midtrans\Config;
 use Midtrans\Snap;
@@ -26,9 +26,9 @@ class AdminOrderController extends Controller
     {
         // Ambil produk yang masih tersedia stoknya
         $products = Product::where('stock', '>', 0)
-                        ->where('status', true)
-                        ->get();
-                        
+                            ->where('status', true)
+                            ->get();
+                            
         return view('admin.orders.create', compact('products'));
     }
 
@@ -37,6 +37,15 @@ class AdminOrderController extends Controller
      */
     public function store(Request $request)
     {
+        // --- BAGIAN YANG DITAMBAHKAN UNTUK DEBUGGING ---
+        Log::info('AdminOrderController@store: Request data:', $request->all());
+        Log::info('AdminOrderController@store: Customer details from request:', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+        // --- AKHIR BAGIAN YANG DITAMBAHKAN ---
+
         // Validasi data yang diterima
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -48,6 +57,7 @@ class AdminOrderController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Log::warning('AdminOrderController@store: Validation failed', $validator->errors()->toArray()); // Logging validasi gagal
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -60,6 +70,7 @@ class AdminOrderController extends Controller
             
             // Periksa stok produk
             if ($product->stock < $request->quantity) {
+                Log::warning('AdminOrderController@store: Insufficient stock', ['product_id' => $request->product_id, 'requested_quantity' => $request->quantity, 'current_stock' => $product->stock]);
                 return redirect()->back()->with('error', 'Stok produk tidak mencukupi');
             }
             
@@ -84,6 +95,8 @@ class AdminOrderController extends Controller
                 'customer_email' => $request->email,
                 'customer_phone' => $request->phone,
             ]);
+
+            Log::info('AdminOrderController@store: Order created successfully', ['order_id' => $order->id, 'order_number' => $order->order_number, 'customer_name_db' => $order->customer_name]);
             
             // Buat order item
             OrderItem::create([
@@ -184,8 +197,8 @@ class AdminOrderController extends Controller
     public function adminCreated()
     {
         $orders = Order::whereNotNull('created_by_admin_id')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(10);
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
         
         return view('admin.orders.admin-created', compact('orders'));
     }
@@ -390,4 +403,4 @@ class AdminOrderController extends Controller
             return false;
         }
     }
-} 
+}

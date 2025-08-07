@@ -23,11 +23,11 @@ class AdminSeeder extends Seeder
         ]);
         
         // User dengan role user untuk pengujian
-        Admin::create([
-            'name' => 'User Test',
-            'email' => 'user@wipamotor.com',
-            'password' => Hash::make('user123'),
-            'role' => 'user',
-        ]);
+        // Admin::create([
+        //     'name' => 'User Test',
+        //     'email' => 'user@wipamotor.com',
+        //     'password' => Hash::make('user123'),
+        //     'role' => 'user',
+        // ]);
     }
 }

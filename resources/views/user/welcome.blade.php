@@ -47,25 +47,25 @@
             <h2 class="text-lg sm:text-xl font-bold">KATEGORI</h2>
         </div>
         
-        <!-- Mobile: Grid 3 kolom, Desktop: Flex horizontal -->
-        <div class="grid grid-cols-3 gap-4 sm:flex sm:justify-center sm:items-center sm:space-x-12 sm:py-4">
-            <a href="{{ route('products.category', 'motor-matic') }}" class="text-center hover:opacity-80 sm:grid-cols-none">
+        <!-- Mobile: Flex horizontal dengan scroll, Desktop: Flex horizontal tengah -->
+        <div class="flex justify-start sm:justify-center overflow-x-auto sm:overflow-x-visible space-x-6 sm:space-x-12 py-2 sm:py-4">
+            <a href="{{ route('products.category', 'motor-matic') }}" class="flex-shrink-0 text-center hover:opacity-80">
                 <div class="bg-gray-100 rounded-full p-3 sm:p-4 inline-block mx-auto mb-2">
                     <i class="fa-solid fa-motorcycle text-gray-700 text-xl sm:text-2xl"></i>
                 </div>
-                <p class="text-xs sm:text-sm font-medium">Motor Matic</p>
+                <p class="text-xs sm:text-sm font-medium whitespace-nowrap">Motor Matic</p>
             </a>
-            <a href="{{ route('products.category', 'motor-bebek') }}" class="text-center hover:opacity-80 sm:grid-cols-none">
+            <a href="{{ route('products.category', 'motor-bebek') }}" class="flex-shrink-0 text-center hover:opacity-80">
                 <div class="bg-gray-100 rounded-full p-3 sm:p-4 inline-block mx-auto mb-2">
                     <i class="fa-solid fa-bicycle text-gray-700 text-xl sm:text-2xl"></i>
                 </div>
-                <p class="text-xs sm:text-sm font-medium">Motor Bebek</p>
+                <p class="text-xs sm:text-sm font-medium whitespace-nowrap">Motor Bebek</p>
             </a>
-            <a href="{{ route('products.category', 'motor-sport') }}" class="text-center hover:opacity-80 sm:grid-cols-none">
+            <a href="{{ route('products.category', 'motor-sport') }}" class="flex-shrink-0 text-center hover:opacity-80">
                 <div class="bg-gray-100 rounded-full p-3 sm:p-4 inline-block mx-auto mb-2">
                     <i class="fa-solid fa-gauge-high text-gray-700 text-xl sm:text-2xl"></i>
                 </div>
-                <p class="text-xs sm:text-sm font-medium">Motor Sport</p>
+                <p class="text-xs sm:text-sm font-medium whitespace-nowrap">Motor Sport</p>
             </a>
         </div>
     </section>
@@ -87,7 +87,7 @@
                     <div class="p-3">
                         <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
                         <div>
-                            <span class="text-blue-600 font-bold text-sm">{{ $product->formatted_price }}</span>
+                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
@@ -137,7 +137,7 @@
                     <div class="p-3">
                         <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
                         <div>
-                            <span class="text-blue-600 font-bold text-sm">{{ $product->formatted_price }}</span>
+                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
@@ -178,7 +178,7 @@
                     <div class="p-3">
                         <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
                         <div>
-                            <span class="text-blue-600 font-bold text-sm">{{ $product->formatted_price }}</span>
+                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>

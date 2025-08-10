@@ -8,7 +8,7 @@
     <div class="mb-4 md:mb-6">
         <h1 class="text-xl md:text-2xl font-bold text-gray-800">Dashboard</h1>
         <div class="flex flex-col sm:flex-row mt-1 justify-between items-start sm:items-center">
-            <p class="text-sm md:text-base text-gray-600">Selamat datang di panel admin MotorShop</p>
+            <p class="text-sm md:text-base text-gray-600">Selamat datang di panel admin Wipa Motor</p>
             
             @if(isset($startDateFormatted) && isset($endDateFormatted))
                 <p class="text-xs md:text-sm text-indigo-600 font-medium">

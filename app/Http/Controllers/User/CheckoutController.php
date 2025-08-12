@@ -96,33 +96,56 @@ class CheckoutController extends Controller
     /**
      * Tambahkan produk ke checkout langsung dari halaman detail
      */
-    public function buyNow($id)
-    {
-        // Pastikan user sudah login
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-        
-        // Ambil produk berdasarkan ID
-        $product = Product::findOrFail($id);
-        
-        // Simpan informasi produk yang akan dibeli langsung di session
-        // Tidak perlu menggunakan Cart lagi
-        session([
-            'direct_buy' => true, 
-            'direct_buy_product' => [
-                'id' => $product->id,
-                'name' => $product->name,
-                'price' => $product->price,
-                'image_url' => $product->image_url,
-                'quantity' => 1,
-                'slug' => $product->slug
-            ]
-        ]);
-        
-        // Redirect ke halaman checkout
-        return redirect()->route('checkout.index');
+    /**
+ * Tambahkan produk ke checkout langsung dari halaman detail
+ */
+public function buyNow($id)
+{
+    // Pastikan user sudah login
+    if (!Auth::check()) {
+        return redirect()->route('login');
     }
+    
+    // Ambil produk berdasarkan ID
+    $product = Product::findOrFail($id);
+    
+    // Periksa stok produk
+    if ($product->stock < 1) {
+        return redirect()->route('products.detail', $product->slug)
+            ->with('error', 'Maaf, stok produk tidak tersedia.');
+    }
+    
+    // PERBAIKAN: Hapus session lama terlebih dahulu untuk menghindari konflik
+    session()->forget(['direct_buy', 'direct_buy_product']);
+    
+    // Simpan informasi produk yang akan dibeli langsung di session
+    $directBuyData = [
+        'id' => $product->id,
+        'name' => $product->name,
+        'price' => $product->price,
+        'image_url' => $product->image_url,
+        'quantity' => 1,
+        'slug' => $product->slug
+    ];
+    
+    // PERBAIKAN: Set session dengan method yang lebih eksplisit
+    session()->put('direct_buy', true);
+    session()->put('direct_buy_product', $directBuyData);
+    
+    // PERBAIKAN: Regenerate session ID untuk memastikan data tersimpan
+    session()->save();
+    
+    // Log untuk debugging
+    Log::info('Buy Now Session Set', [
+        'product_id' => $product->id,
+        'session_direct_buy' => session('direct_buy'),
+        'session_product' => session('direct_buy_product'),
+        'user_id' => Auth::id()
+    ]);
+    
+    // Redirect ke halaman checkout
+    return redirect()->route('checkout.index');
+}
 
     /**
      * Proses checkout dan buat order

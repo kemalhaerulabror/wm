@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Banner/Carousel -->
-    <section class="container mx-auto px-2 sm:px-4 pt-3 sm:pt-4">
+    <section class="container mx-auto px-4 pt-4">
         <!-- Main Carousel -->
         <div class="relative rounded-lg overflow-hidden" id="mainCarousel">
             <div class="carousel-container">
@@ -42,11 +42,13 @@
     </section>
 
     <!-- Kategori -->
-    <section class="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
-        <div class="text-center mb-2 sm:mb-4">
+    <section class="container mx-auto px-4 py-4 sm:py-8">
+        <div class="text-center mb-4">
             <h2 class="text-lg sm:text-xl font-bold">KATEGORI</h2>
         </div>
-        <div class="flex justify-center items-center space-x-6 sm:space-x-12 py-2 sm:py-4">
+        
+        <!-- Mobile dan Desktop: Flex horizontal tengah -->
+        <div class="flex justify-center space-x-6 sm:space-x-12 py-2 sm:py-4">
             <a href="{{ route('products.category', 'motor-matic') }}" class="text-center hover:opacity-80">
                 <div class="bg-gray-100 rounded-full p-3 sm:p-4 inline-block mx-auto mb-2">
                     <i class="fa-solid fa-motorcycle text-gray-700 text-xl sm:text-2xl"></i>
@@ -69,40 +71,41 @@
     </section>
 
     <!-- Motor Rekomendasi/Populer (Featured Products) -->
-    <section class="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
-        <div class="flex items-center justify-between mb-2 sm:mb-4">
+    <section class="container mx-auto px-4 py-4 sm:py-8">
+        <div class="flex items-center justify-between mb-4">
             <h2 class="text-base sm:text-xl font-bold">REKOMENDASI UNTUK ANDA</h2>
             <a href="{{ route('products.category', 'all') }}" class="text-xs sm:text-sm text-gray-500 hover:text-gray-700">Lihat Semua</a>
         </div>
         
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
+        <!-- Mobile: 2 kolom, Tablet: 3 kolom, Desktop: 6 kolom -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
             @forelse($featuredProducts as $product)
             <!-- Item Produk -->
-            <div class="bg-white border border-gray-200 rounded hover:shadow-md transition">
+            <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
                 <a href="{{ route('products.detail', $product->slug) }}" class="block">
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-24 sm:h-36 object-cover">
-                    <div class="p-2 sm:p-3">
-                        <p class="text-gray-800 text-xs sm:text-sm line-clamp-2">{{ $product->name }}</p>
-                        <div class="mt-1 sm:mt-2">
-                            <span class="text-gray-800 font-bold text-xs sm:text-sm">{{ $product->formatted_price }}</span>
+                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
+                    <div class="p-3">
+                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
+                        <div>
+                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
-                <div class="px-2 sm:px-3 pb-2 sm:pb-3">
+                <div class="px-3 pb-3">
                     <div class="flex space-x-2 items-center">
                         @if($product->stock > 0)
                             @auth
-                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded py-2 px-3 transition flex justify-center items-center">
+                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
                                 Beli
                             </a>
                             @else
-                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded py-2 px-3 transition flex justify-center items-center">
-                                Beli (login)
+                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                                Login
                             </a>
                             @endauth
                             <livewire:cart.add-to-cart-button :productId="$product->id" />
                         @else
-                            <span class="flex-grow bg-gray-400 text-white text-xs sm:text-sm rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
+                            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
                                 Sold Out
                             </span>
                             <div class="w-10"></div>
@@ -119,39 +122,40 @@
     </section>
 
     <!-- Semua Produk -->
-    <section class="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
-        <div class="flex items-center justify-between mb-2 sm:mb-4">
+    <section class="container mx-auto px-4 py-4 sm:py-8">
+        <div class="flex items-center justify-between mb-4">
             <h2 class="text-base sm:text-xl font-bold">SEMUA PRODUK</h2>
         </div>
         
-        <div class="grid grid-cols-5 gap-2 sm:gap-4 mb-4">
+        <!-- Mobile: 2 kolom, Desktop: 5 kolom -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
             @forelse($allProducts->take(5) as $product)
             <!-- Produk Item Baris 1 -->
-            <div class="bg-white border border-gray-200 rounded hover:shadow-md transition">
+            <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
                 <a href="{{ route('products.detail', $product->slug) }}" class="block">
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-24 sm:h-36 object-cover">
-                    <div class="p-2 sm:p-3">
-                        <p class="text-gray-800 text-xs sm:text-sm line-clamp-2">{{ $product->name }}</p>
-                        <div class="mt-1 sm:mt-2">
-                            <span class="text-gray-800 font-bold text-xs sm:text-sm">{{ $product->formatted_price }}</span>
+                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
+                    <div class="p-3">
+                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
+                        <div>
+                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
-                <div class="px-2 sm:px-3 pb-2 sm:pb-3">
+                <div class="px-3 pb-3">
                     <div class="flex space-x-2 items-center">
                         @if($product->stock > 0)
                             @auth
-                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded py-2 px-3 transition flex justify-center items-center">
+                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
                                 Beli
                             </a>
                             @else
-                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded py-2 px-3 transition flex justify-center items-center">
-                                Beli (login)
+                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                                Login
                             </a>
                             @endauth
                             <livewire:cart.add-to-cart-button :productId="$product->id" />
                         @else
-                            <span class="flex-grow bg-gray-400 text-white text-xs sm:text-sm rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
+                            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
                                 Sold Out
                             </span>
                             <div class="w-10"></div>
@@ -163,34 +167,36 @@
             @endforelse
         </div>
         
-        <div class="grid grid-cols-5 gap-2 sm:gap-4">
+        <!-- Baris kedua produk -->
+        @if($allProducts->count() > 5)
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
             @forelse($allProducts->skip(5)->take(5) as $product)
             <!-- Produk Item Baris 2 -->
-            <div class="bg-white border border-gray-200 rounded hover:shadow-md transition">
+            <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
                 <a href="{{ route('products.detail', $product->slug) }}" class="block">
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-24 sm:h-36 object-cover">
-                    <div class="p-2 sm:p-3">
-                        <p class="text-gray-800 text-xs sm:text-sm line-clamp-2">{{ $product->name }}</p>
-                        <div class="mt-1 sm:mt-2">
-                            <span class="text-gray-800 font-bold text-xs sm:text-sm">{{ $product->formatted_price }}</span>
+                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
+                    <div class="p-3">
+                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
+                        <div>
+                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
-                <div class="px-2 sm:px-3 pb-2 sm:pb-3">
+                <div class="px-3 pb-3">
                     <div class="flex space-x-2 items-center">
                         @if($product->stock > 0)
                             @auth
-                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded py-2 px-3 transition flex justify-center items-center">
+                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
                                 Beli
                             </a>
                             @else
-                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded py-2 px-3 transition flex justify-center items-center">
-                                Beli (login)
+                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                                Login
                             </a>
                             @endauth
                             <livewire:cart.add-to-cart-button :productId="$product->id" />
                         @else
-                            <span class="flex-grow bg-gray-400 text-white text-xs sm:text-sm rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
+                            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
                                 Sold Out
                             </span>
                             <div class="w-10"></div>
@@ -201,6 +207,7 @@
             @empty
             @endforelse
         </div>
+        @endif
         
         @if(count($allProducts) == 0)
         <div class="text-center py-8">
@@ -313,10 +320,38 @@ document.addEventListener('DOMContentLoaded', function() {
         startInterval();
     }
     
+    // Touch/swipe support untuk mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carousel.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    carousel.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - next slide
+                nextSlide();
+            } else {
+                // Swipe right - previous slide  
+                prevSlide();
+            }
+            resetInterval();
+        }
+    }
+    
     // Mulai auto slide
     startInterval();
 });
 </script>
 
 @endsection
-

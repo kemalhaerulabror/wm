@@ -102,6 +102,7 @@
                     <li><a href="{{ route('products.category', ['category' => 'all', 'brand' => 'honda']) }}" class="text-gray-600 hover:text-gray-900 block text-[10px] xs:text-xs sm:text-sm">Honda</a></li>
                     <li><a href="{{ route('products.category', ['category' => 'all', 'brand' => 'yamaha']) }}" class="text-gray-600 hover:text-gray-900 block text-[10px] xs:text-xs sm:text-sm">Yamaha</a></li>
                     <li><a href="{{ route('products.category', ['category' => 'all', 'brand' => 'suzuki']) }}" class="text-gray-600 hover:text-gray-900 block text-[10px] xs:text-xs sm:text-sm">Suzuki</a></li>
+                    <li><a href="{{ route('products.category', ['category' => 'all', 'brand' => 'suzuki']) }}" class="text-gray-600 hover:text-gray-900 block text-[10px] xs:text-xs sm:text-sm">Kawasaki</a></li>
                 </ul>
             </div>
         </div>

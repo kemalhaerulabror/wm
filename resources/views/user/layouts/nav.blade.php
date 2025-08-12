@@ -179,6 +179,7 @@
                     <a href="{{ route('products.category', ['category' => 'all', 'brand' => 'honda']) }}" class="hover:text-gray-300 text-[10px] xs:text-xs sm:text-sm">Honda</a>
                     <a href="{{ route('products.category', ['category' => 'all', 'brand' => 'yamaha']) }}" class="hover:text-gray-300 text-[10px] xs:text-xs sm:text-sm">Yamaha</a>
                     <a href="{{ route('products.category', ['category' => 'all', 'brand' => 'suzuki']) }}" class="hover:text-gray-300 text-[10px] xs:text-xs sm:text-sm">Suzuki</a>
+                    <a href="{{ route('products.category', ['category' => 'all', 'brand' => 'kawasaki']) }}" class="hover:text-gray-300 text-[10px] xs:text-xs sm:text-sm">Kawasaki</a>
                 </div>
             </div>
         </div>

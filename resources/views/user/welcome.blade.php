@@ -78,9 +78,9 @@
         </div>
         
         <!-- Mobile: 2 kolom, Tablet: 3 kolom, Desktop: 6 kolom -->
-        <div class="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
             @forelse($featuredProducts as $product)
-            <!-- Item Produk -->
+            <!-- Item Produk rekomendasi -->
             <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
                 <a href="{{ route('products.detail', $product->slug) }}" class="block">
                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
@@ -128,7 +128,7 @@
         </div>
         
         <!-- Mobile: 2 kolom, Desktop: 5 kolom -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
+        <div class="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 gap-3 sm:gap-4 mb-4">
             @forelse($allProducts->take(5) as $product)
             <!-- Produk Item Baris 1 -->
             <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">

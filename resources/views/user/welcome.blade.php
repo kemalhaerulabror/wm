@@ -91,26 +91,33 @@
                         </div>
                     </div>
                 </a>
-                <div class="px-3 pb-3">
-                    <div class="flex space-x-2 items-center">
-                        @if($product->stock > 0)
-                            @auth
-                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
-                                Beli
-                            </a>
-                            @else
-                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
-                                Login
-                            </a>
-                            @endauth
-                            <livewire:cart.add-to-cart-button :productId="$product->id" />
-                        @else
-                            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
-                                Sold Out
-                            </span>
-                            <div class="w-10"></div>
-                        @endif
-                    </div>
+                <!-- Ganti bagian ini di welcome.blade.php pada SEMUA section produk -->
+
+<div class="px-3 pb-3">
+    <div class="flex space-x-2 items-center">
+        @if($product->stock > 0)
+            @auth
+            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                Beli
+            </a>
+            <livewire:cart.add-to-cart-button :productId="$product->id" />
+            @else
+            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                Login
+            </a>
+            <!-- Tombol cart untuk guest - redirect ke login -->
+            <a href="{{ route('login') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded p-2 transition flex justify-center items-center" title="Login untuk menambah ke keranjang">
+                <i class="fa-solid fa-shopping-cart text-xs"></i>
+            </a>
+            @endauth
+        @else
+            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
+                Sold Out
+            </span>
+            <div class="w-10"></div>
+        @endif
+    </div>
+</div>
                 </div>
             </div>
             @empty

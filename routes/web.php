@@ -31,7 +31,7 @@ use App\Http\Controllers\User\NotificationController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-// Cart Routes - Dengan middleware auth
+// Cart Routes - DENGAN MIDDLEWARE AUTH
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
@@ -151,6 +151,3 @@ Route::prefix('admin')->group(function () {
         Route::get('/orders/success/{id}', [App\Http\Controllers\Admin\AdminOrderController::class, 'success'])->name('admin.orders.success');
     });
 });
-
-
-

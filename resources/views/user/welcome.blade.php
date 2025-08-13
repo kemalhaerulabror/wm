@@ -77,47 +77,46 @@
             <a href="{{ route('products.category', 'all') }}" class="text-xs sm:text-sm text-gray-500 hover:text-gray-700">Lihat Semua</a>
         </div>
         
-        <!-- Mobile: 2 kolom, Tablet: 3 kolom, Desktop: 6 kolom -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+        <!-- Mobile: 2 kolom, Tablet: 3 kolom, Desktop: 4-5 kolom -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
             @forelse($featuredProducts as $product)
             <!-- Item Produk -->
             <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
                 <a href="{{ route('products.detail', $product->slug) }}" class="block">
                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
                     <div class="p-3">
-                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
-                        <div>
+                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight line-clamp-2">{{ $product->name }}</p>
+                        <div class="mb-3">
                             <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
-                <!-- Ganti bagian ini di welcome.blade.php pada SEMUA section produk -->
-
-<div class="px-3 pb-3">
-    <div class="flex space-x-2 items-center">
-        @if($product->stock > 0)
-            @auth
-            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
-                Beli
-            </a>
-            <livewire:cart.add-to-cart-button :productId="$product->id" />
-            @else
-            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
-                Login
-            </a>
-            <!-- Tombol cart untuk guest - redirect ke login -->
-            <a href="{{ route('login') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded p-2 transition flex justify-center items-center" title="Login untuk menambah ke keranjang">
-                <i class="fa-solid fa-shopping-cart text-xs"></i>
-            </a>
-            @endauth
-        @else
-            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
-                Sold Out
-            </span>
-            <div class="w-10"></div>
-        @endif
-    </div>
-</div>
+                
+                <div class="px-3 pb-3">
+                    <div class="flex gap-2 items-center">
+                        @if($product->stock > 0)
+                            @auth
+                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition text-center">
+                                Beli
+                            </a>
+                            <div class="flex-shrink-0">
+                                <livewire:cart.add-to-cart-button :productId="$product->id" />
+                            </div>
+                            @else
+                            <a href="{{ route('login') }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition text-center">
+                                Login
+                            </a>
+                            <!-- Tombol cart untuk guest - redirect ke login -->
+                            <a href="{{ route('login') }}" class="flex-shrink-0 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded p-2 transition" title="Login untuk menambah ke keranjang">
+                                <i class="fa-solid fa-shopping-cart text-xs"></i>
+                            </a>
+                            @endauth
+                        @else
+                            <span class="flex-1 bg-gray-400 text-white text-xs rounded py-2 px-3 text-center cursor-not-allowed">
+                                Sold Out
+                            </span>
+                        @endif
+                    </div>
                 </div>
             </div>
             @empty
@@ -134,93 +133,54 @@
             <h2 class="text-base sm:text-xl font-bold">SEMUA PRODUK</h2>
         </div>
         
-        <!-- Mobile: 2 kolom, Desktop: 5 kolom -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
-            @forelse($allProducts->take(5) as $product)
-            <!-- Produk Item Baris 1 -->
+        <!-- Mobile: 2 kolom, Desktop: 4-5 kolom -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 mb-4">
+            @forelse($allProducts->take(10) as $product)
+            <!-- Produk Item -->
             <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
                 <a href="{{ route('products.detail', $product->slug) }}" class="block">
                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
                     <div class="p-3">
-                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
-                        <div>
+                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight line-clamp-2">{{ $product->name }}</p>
+                        <div class="mb-3">
                             <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
                         </div>
                     </div>
                 </a>
+                
                 <div class="px-3 pb-3">
-                    <div class="flex space-x-2 items-center">
+                    <div class="flex gap-2 items-center">
                         @if($product->stock > 0)
                             @auth
-                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition text-center">
                                 Beli
                             </a>
+                            <div class="flex-shrink-0">
+                                <livewire:cart.add-to-cart-button :productId="$product->id" />
+                            </div>
                             @else
-                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                            <a href="{{ route('login') }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition text-center">
                                 Login
                             </a>
+                            <!-- Tombol cart untuk guest - redirect ke login -->
+                            <a href="{{ route('login') }}" class="flex-shrink-0 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded p-2 transition" title="Login untuk menambah ke keranjang">
+                                <i class="fa-solid fa-shopping-cart text-xs"></i>
+                            </a>
                             @endauth
-                            <livewire:cart.add-to-cart-button :productId="$product->id" />
                         @else
-                            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
+                            <span class="flex-1 bg-gray-400 text-white text-xs rounded py-2 px-3 text-center cursor-not-allowed">
                                 Sold Out
                             </span>
-                            <div class="w-10"></div>
                         @endif
                     </div>
                 </div>
             </div>
             @empty
-            @endforelse
-        </div>
-        
-        <!-- Baris kedua produk -->
-        @if($allProducts->count() > 5)
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-            @forelse($allProducts->skip(5)->take(5) as $product)
-            <!-- Produk Item Baris 2 -->
-            <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
-                <a href="{{ route('products.detail', $product->slug) }}" class="block">
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-32 sm:h-36 object-cover">
-                    <div class="p-3">
-                        <p class="text-gray-800 text-sm font-medium mb-2 leading-tight overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</p>
-                        <div>
-                            <span class="text-gray-800 font-bold text-sm">{{ $product->formatted_price }}</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="px-3 pb-3">
-                    <div class="flex space-x-2 items-center">
-                        @if($product->stock > 0)
-                            @auth
-                            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
-                                Beli
-                            </a>
-                            @else
-                            <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
-                                Login
-                            </a>
-                            @endauth
-                            <livewire:cart.add-to-cart-button :productId="$product->id" />
-                        @else
-                            <span class="flex-grow bg-gray-400 text-white text-xs rounded py-2 px-3 flex justify-center items-center cursor-not-allowed">
-                                Sold Out
-                            </span>
-                            <div class="w-10"></div>
-                        @endif
-                    </div>
-                </div>
+            <div class="col-span-full text-center py-8">
+                <p class="text-gray-500">Belum ada produk tersedia.</p>
             </div>
-            @empty
             @endforelse
         </div>
-        @endif
-        
-        @if(count($allProducts) == 0)
-        <div class="text-center py-8">
-            <p class="text-gray-500">Belum ada produk tersedia.</p>
-        </div>
-        @endif
         
         <!-- Tombol Lihat Lebih Lengkap -->
         <div class="flex justify-center mt-6 sm:mt-8">

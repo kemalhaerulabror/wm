@@ -34,25 +34,24 @@
                     </div>
                 </div>
                 
-                <div class="flex space-x-3 items-center">
+                <div class="flex gap-3 items-center">
                     @if($product->stock > 0)
                         @auth
-                        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition text-center">
                             Beli Sekarang
                         </a>
                         @else
-                        <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                        <a href="{{ route('login') }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition text-center">
                             Beli (login)
                         </a>
                         @endauth
-                        <div class="w-auto">
+                        <div class="flex-shrink-0">
                             <livewire:cart.add-to-cart-button :productId="$product->id" :showQuantity="false" wire:key="product-detail-{{ $product->id }}" />
                         </div>
                     @else
-                        <span class="flex-grow bg-gray-400 text-white py-3 px-4 rounded font-medium text-sm md:text-base flex justify-center items-center cursor-not-allowed">
+                        <span class="flex-1 bg-gray-400 text-white py-3 px-4 rounded font-medium text-sm md:text-base text-center cursor-not-allowed">
                             Sold Out
                         </span>
-                        <div class="w-10"></div>
                     @endif
                 </div>
             </div>
@@ -64,15 +63,15 @@
         <h2 class="text-xl font-bold text-gray-800 mb-4">Produk Lainnya</h2>
         
         @if(isset($randomProducts) && $randomProducts->count() > 0)
-            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 @foreach($randomProducts as $randomProduct)
                     <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                        <a href="{{ route('products.detail', $randomProduct->slug) }}">
-                            <img src="{{ $randomProduct->image_url }}" alt="{{ $randomProduct->name }}" class="w-full h-40 object-cover">
+                        <a href="{{ route('products.detail', $randomProduct->slug) }}" class="block">
+                            <img src="{{ $randomProduct->image_url }}" alt="{{ $randomProduct->name }}" class="w-full h-32 sm:h-36 object-cover">
                             <div class="p-3">
-                                <h3 class="text-sm font-semibold text-gray-800 mb-1 truncate">{{ $randomProduct->name }}</h3>
-                                <p class="text-sm font-bold text-gray-800">{{ $randomProduct->formatted_price }}</p>
-                                <p class="text-xs text-gray-500 mt-1">
+                                <h3 class="text-sm font-semibold text-gray-800 mb-1 line-clamp-2 leading-tight">{{ $randomProduct->name }}</h3>
+                                <p class="text-sm font-bold text-gray-800 mb-1">{{ $randomProduct->formatted_price }}</p>
+                                <p class="text-xs text-gray-500">
                                     @if($randomProduct->stock > 0)
                                         {{ $randomProduct->stock }} tersedia
                                     @else
@@ -89,4 +88,4 @@
         @endif
     </div>
 </div>
-@endsection 
+@endsection

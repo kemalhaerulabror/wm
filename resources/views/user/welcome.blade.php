@@ -128,7 +128,7 @@
     </div>
     
     <!-- Satu Grid yang Konsisten: Mobile 2 kolom, Desktop 5 kolom -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
         @forelse($allProducts->take(10) as $product)
         <!-- Produk Item -->
         <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">

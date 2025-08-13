@@ -9,12 +9,12 @@
                 <div class="relative">
                     <!-- Slide 1 -->
                     <div class="carousel-slide transition-opacity duration-500 ease-in-out">
-                        <img src="{{ asset('img/4.jpg') }}" alt="Banner Wipa Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/1.jpg') }}" alt="Banner Wipa Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                     
                     <!-- Slide 2 -->
                     <div class="carousel-slide hidden transition-opacity duration-500 ease-in-out">
-                        <img src="{{ asset('img/5.jpg') }}" alt="Promo Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/2.jpg') }}" alt="Promo Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                     
                     <!-- Slide 3 -->

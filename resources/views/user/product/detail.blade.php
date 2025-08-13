@@ -37,11 +37,11 @@
                 <div class="flex space-x-3 items-center">
                     @if($product->stock > 0)
                         @auth
-                        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-grow bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
                             Beli Sekarang
                         </a>
                         @else
-                        <a href="{{ route('login') }}" class="flex-grow bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                        <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
                             Beli (login)
                         </a>
                         @endauth

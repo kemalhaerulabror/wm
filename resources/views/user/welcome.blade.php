@@ -9,12 +9,12 @@
                 <div class="relative">
                     <!-- Slide 1 -->
                     <div class="carousel-slide transition-opacity duration-500 ease-in-out">
-                        <img src="{{ asset('img/1.jpg') }}" alt="Banner Wipa Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/4.jpg') }}" alt="Banner Wipa Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                     
                     <!-- Slide 2 -->
                     <div class="carousel-slide hidden transition-opacity duration-500 ease-in-out">
-                        <img src="{{ asset('img/2.jpg') }}" alt="Promo Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
+                        <img src="{{ asset('img/5.jpg') }}" alt="Promo Motor" class="w-full h-40 sm:h-56 md:h-72 lg:h-80 object-cover">
                     </div>
                     
                     <!-- Slide 3 -->
@@ -128,7 +128,7 @@
     </div>
     
     <!-- Satu Grid yang Konsisten: Mobile 2 kolom, Desktop 5 kolom -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
         @forelse($allProducts->take(10) as $product)
         <!-- Produk Item -->
         <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">
@@ -145,11 +145,11 @@
                 <div class="flex space-x-2 items-center">
                     @if($product->stock > 0)
                         @auth
-                        <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-red-600 hover:bg-red-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                        <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
                             Beli
                         </a>
                         @else
-                        <a href="{{ route('login') }}" class="flex-grow bg-red-600 hover:bg-red-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+                        <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
                             Login
                         </a>
                         @endauth

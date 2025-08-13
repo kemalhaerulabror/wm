@@ -141,14 +141,15 @@
                 </div>
             </a>
             <div class="px-3 pb-3">
+    <div class="px-3 pb-3">
     <div class="flex space-x-2 items-center">
         @if($product->stock > 0)
             @auth
-            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-yellow-400 hover:bg-yellow-500 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+            <a href="{{ route('products.detail', $product->slug) }}" class="flex-grow bg-yellow-400 hover:bg-yellow-500 text-black text-xs rounded py-2 px-3 transition flex justify-center items-center">
                 Beli
             </a>
             @else
-            <a href="{{ route('login') }}" class="flex-grow bg-yellow-400 hover:bg-yellow-500 text-white text-xs rounded py-2 px-3 transition flex justify-center items-center">
+            <a href="{{ route('login') }}" class="flex-grow bg-yellow-400 hover:bg-yellow-500 text-black text-xs rounded py-2 px-3 transition flex justify-center items-center">
                 Login
             </a>
             @endauth

@@ -1,4 +1,4 @@
-<nav class="bg-gray-800 text-white shadow-md fixed top-0 left-0 right-0 z-50">
+<nav class="bg-yellow-800 text-white shadow-md fixed top-0 left-0 right-0 z-50">
     <!-- Top navbar - hanya tampil di desktop -->
     <div class="hidden md:block container mx-auto px-2 sm:px-4">
         <!-- Upper navbar - information & links -->

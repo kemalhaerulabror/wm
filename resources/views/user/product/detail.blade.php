@@ -35,34 +35,26 @@
                 </div>
                 
                 <div class="flex space-x-3 items-center">
-    @if($product->stock > 0)
-        @auth
-        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
-            Beli Sekarang
-        </a>
-        <div class="w-auto">
-            <livewire:cart.add-to-cart-button :productId="$product->id" :showQuantity="false" wire:key="product-detail-{{ $product->id }}" />
-        </div>
-        @else
-        <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
-            Beli (login)
-        </a>
-        <div class="w-auto">
-            <a href="{{ route('login') }}" class="bg-gray-600 hover:bg-gray-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13h10M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"></path>
-                </svg>
-                Cart
-            </a>
-        </div>
-        @endauth
-    @else
-        <span class="flex-grow bg-gray-400 text-white py-3 px-4 rounded font-medium text-sm md:text-base flex justify-center items-center cursor-not-allowed">
-            Sold Out
-        </span>
-        <div class="w-10"></div>
-    @endif
-</div>
+                    @if($product->stock > 0)
+                        @auth
+                        <a href="{{ route('checkout.buy-now', $product->id) }}" id="buyButton" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                            Beli Sekarang
+                        </a>
+                        @else
+                        <a href="{{ route('login') }}" class="flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded font-medium text-sm md:text-base transition flex justify-center items-center">
+                            Beli (login)
+                        </a>
+                        @endauth
+                        <div class="w-auto">
+                            <livewire:cart.add-to-cart-button :productId="$product->id" :showQuantity="false" wire:key="product-detail-{{ $product->id }}" />
+                        </div>
+                    @else
+                        <span class="flex-grow bg-gray-400 text-white py-3 px-4 rounded font-medium text-sm md:text-base flex justify-center items-center cursor-not-allowed">
+                            Sold Out
+                        </span>
+                        <div class="w-10"></div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -97,4 +89,4 @@
         @endif
     </div>
 </div>
-@endsection
+@endsection 

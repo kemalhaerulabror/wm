@@ -128,7 +128,7 @@
         </div>
         
         <!-- Mobile: 2 kolom, Desktop: 5 kolom -->
-        <div class="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 gap-3 sm:gap-4 mb-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
             @forelse($allProducts->take(5) as $product)
             <!-- Produk Item Baris 1 -->
             <div class="bg-white border border-gray-200 rounded-lg hover:shadow-md transition overflow-hidden">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Models\Cart;
 
 class LoginController extends Controller
 {
@@ -46,6 +47,10 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
+            
+            // Migrasi session cart ke user cart setelah login berhasil
+            $this->migrateSessionCartToUser();
+            
             return redirect()->intended(route('home'));
         }
 
@@ -53,6 +58,49 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             'password' => ['Password yang Anda masukkan salah'],
         ]);
+    }
+
+    /**
+     * Migrasi session cart ke user cart setelah login berhasil
+     */
+    protected function migrateSessionCartToUser()
+    {
+        // Cek apakah ada session cart
+        if (session()->has('cart_session_id')) {
+            $sessionId = session('cart_session_id');
+            $sessionCartItems = Cart::where('session_id', $sessionId)->get();
+            
+            foreach ($sessionCartItems as $sessionItem) {
+                // Cek apakah produk sudah ada di user cart
+                $existingUserItem = Cart::where('user_id', Auth::id())
+                                       ->where('product_id', $sessionItem->product_id)
+                                       ->first();
+                                       
+                if ($existingUserItem) {
+                    // Jika produk sudah ada di user cart, gabungkan quantity
+                    $newQuantity = $existingUserItem->quantity + $sessionItem->quantity;
+                    
+                    // Validasi stock (optional - untuk mencegah over-booking)
+                    if ($sessionItem->product && $newQuantity > $sessionItem->product->stock) {
+                        $newQuantity = $sessionItem->product->stock;
+                    }
+                    
+                    $existingUserItem->update(['quantity' => $newQuantity]);
+                    
+                    // Hapus session cart item
+                    $sessionItem->delete();
+                } else {
+                    // Jika produk belum ada di user cart, pindahkan dari session ke user
+                    $sessionItem->update([
+                        'user_id' => Auth::id(),
+                        'session_id' => null
+                    ]);
+                }
+            }
+            
+            // Hapus session cart ID setelah migrasi selesai
+            session()->forget('cart_session_id');
+        }
     }
 
     public function logout(Request $request)
@@ -83,4 +131,4 @@ class LoginController extends Controller
         // Redirect ke halaman login
         return redirect()->route('login');
     }
-} 
+}

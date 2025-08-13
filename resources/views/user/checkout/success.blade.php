@@ -164,7 +164,7 @@
                 @if($order->payment_status == 'paid')
                 <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg text-center">
                     <p class="text-sm text-green-700 font-medium mb-2">Pembayaran Anda telah berhasil dikonfirmasi!</p>
-                    <p class="text-xs text-green-600 mb-3">Pesanan Anda sedang diproses dan akan segera ditindaklanjuti.</p>
+                    <p class="text-xs text-green-600 mb-3">Pesanan Anda diproses dan Silahkan Datang ke Wipa Motor</p>
                     
                     <a href="{{ route('checkout.invoice', $order->id) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-white border border-green-300 rounded-md shadow-sm text-sm font-medium text-green-700 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
                         <i class="fas fa-file-invoice mr-2"></i>

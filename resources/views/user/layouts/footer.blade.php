@@ -1,4 +1,4 @@
-<footer class="bg-yellow-600 text-white pt-6 sm:pt-10 pb-4 sm:pb-6">
+<footer class="bg-gray-800 text-white pt-6 sm:pt-10 pb-4 sm:pb-6">
     <div class="container mx-auto px-2 sm:px-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
             <!-- Brand and Info -->

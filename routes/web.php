@@ -31,15 +31,11 @@ use App\Http\Controllers\User\NotificationController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-// Cart Routes - Add to cart tetap bisa diakses guest user untuk session cart
+// Cart Routes
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
-
-// Cart Routes yang memerlukan login
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
-    Route::patch('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
-});
+Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::patch('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -153,3 +149,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/orders/success/{id}', [App\Http\Controllers\Admin\AdminOrderController::class, 'success'])->name('admin.orders.success');
     });
 });
+
+
+

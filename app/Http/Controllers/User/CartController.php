@@ -20,10 +20,15 @@ class CartController extends Controller
         return session('cart_session_id');
     }
     
-    // Menampilkan halaman keranjang (sudah protected by auth middleware di routes)
+    // Menampilkan halaman keranjang
     public function index()
     {
-        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        if (Auth::check()) {
+            $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        } else {
+            $sessionId = $this->getSessionId();
+            $cartItems = Cart::where('session_id', $sessionId)->with('product')->get();
+        }
         
         $total = $cartItems->sum(function ($item) {
             return $item->price * $item->quantity;
@@ -32,7 +37,7 @@ class CartController extends Controller
         return view('user.cart.index', compact('cartItems', 'total'));
     }
     
-    // Menambahkan produk ke keranjang (bisa diakses guest dan auth user)
+    // Menambahkan produk ke keranjang
     public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -79,13 +84,15 @@ class CartController extends Controller
         return back()->with('success', 'Produk berhasil ditambahkan ke keranjang');
     }
     
-    // Menghapus item dari keranjang (sudah protected by auth middleware di routes)
+    // Menghapus item dari keranjang
     public function removeFromCart($id)
     {
         $cartItem = Cart::findOrFail($id);
         
         // Pastikan pengguna hanya dapat menghapus item miliknya
-        if ($cartItem->user_id != Auth::id()) {
+        if (Auth::check() && $cartItem->user_id != Auth::id()) {
+            abort(403);
+        } elseif (!Auth::check() && $cartItem->session_id != session('cart_session_id')) {
             abort(403);
         }
         
@@ -94,7 +101,7 @@ class CartController extends Controller
         return back()->with('success', 'Produk berhasil dihapus dari keranjang');
     }
     
-    // Update jumlah item di keranjang (sudah protected by auth middleware di routes)
+    // Update jumlah item di keranjang
     public function updateQuantity(Request $request, $id)
     {
         $request->validate([
@@ -104,7 +111,9 @@ class CartController extends Controller
         $cartItem = Cart::findOrFail($id);
         
         // Pastikan pengguna hanya dapat mengupdate item miliknya
-        if ($cartItem->user_id != Auth::id()) {
+        if (Auth::check() && $cartItem->user_id != Auth::id()) {
+            abort(403);
+        } elseif (!Auth::check() && $cartItem->session_id != session('cart_session_id')) {
             abort(403);
         }
         
